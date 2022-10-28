@@ -132,6 +132,6 @@ public class AuthService {
 
     public void nameDuplicate(String name) {
         if(userRepository.existsByName(name))
-            throw new RequestException(LOGIN_FAIL_EXCEPTION);
+            throw new RequestException(ALREADY_EXISTS_EXCEPTION);
     }
 }

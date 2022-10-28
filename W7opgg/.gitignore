@@ -22,7 +22,7 @@ bin/
 *.iws
 *.iml
 *.ipr
-application.properties
+*.properties
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/

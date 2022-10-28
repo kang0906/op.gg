@@ -7,7 +7,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.util.IOUtils;
 import com.example.w7opgg.dto.PostCreateResponseDto;
 import com.example.w7opgg.entity.Post;
-import com.example.w7opgg.entity.PostCreateRequestDto;
+import com.example.w7opgg.dto.PostCreateRequestDto;
 import com.example.w7opgg.entity.Member;
 import com.example.w7opgg.repository.PostRepository;
 import com.example.w7opgg.s3.CommonUtils;

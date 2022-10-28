@@ -1,4 +1,4 @@
-package com.example.w7opgg.entity;
+package com.example.w7opgg.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

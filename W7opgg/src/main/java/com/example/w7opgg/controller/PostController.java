@@ -5,7 +5,7 @@ import com.example.w7opgg.dto.PostCreateResponseDto;
 import com.example.w7opgg.entity.Member;
 import com.example.w7opgg.entity.PostCreateRequestDto;
 import com.example.w7opgg.exception.RequestException;
-import com.example.w7opgg.repository.UserRepository;
+import com.example.w7opgg.repository.MemberRepository;
 import com.example.w7opgg.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ import static com.example.w7opgg.exception.ExceptionType.*;
 public class PostController {
 
     private final PostService postService;
-    private final UserRepository userRepository;
+    private final MemberRepository userRepository;
 
     // 게시물 작성
     @PostMapping("/post")

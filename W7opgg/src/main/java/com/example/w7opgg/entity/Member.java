@@ -49,4 +49,13 @@ public class Member {
         this.name = name;
         this.authority = authority;
     }
+
+    @Builder
+    public Member(String email,String name, String password, Authority authority) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.name = name;
+        this.authority = authority;
+    }
 }

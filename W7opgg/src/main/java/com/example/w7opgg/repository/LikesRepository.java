@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LikesRepository extends JpaRepository<Likes, Integer> {
-    Likes findByPostAndUser(Post post, Member member);
+    Likes findByPostAndMember(Post post, Member member);
 
-    Page<Likes> findByUserId(Pageable pageable, int id);
+    Page<Likes> findByMemberId(Pageable pageable, int id);
 }

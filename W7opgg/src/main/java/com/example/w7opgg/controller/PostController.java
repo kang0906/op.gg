@@ -68,7 +68,7 @@ public class PostController {
     }
 
     //게시글 수정
-    @PutMapping("/api/auth/post/{id}")
+    @PutMapping("/post/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> UpdatePost(@PathVariable Integer id,
                                         @RequestBody PostRequestDto postRequestDto,
@@ -77,7 +77,7 @@ public class PostController {
     }
 
     //게시글 삭제
-    @DeleteMapping(value = "/api/auth/post/{id}")
+    @DeleteMapping(value = "/post/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> DeletePost(@PathVariable Integer id, HttpServletRequest request) {
         return postService.DeletePost(id, request);
@@ -93,7 +93,7 @@ public class PostController {
     }
 
     // 인기 게시글 조회
-    @GetMapping("/post/popular")
+    @GetMapping("/best")
     @ResponseStatus(HttpStatus.OK)
     public CommonResponseDto PopularPost(@PageableDefault(size = 5, sort = "like", direction = Sort.Direction.DESC) Pageable pageable) {
         return CommonResponseDto.result(postService.findPopularPost(pageable));

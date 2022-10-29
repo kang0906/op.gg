@@ -141,7 +141,7 @@ public class PostService<member> {
     }
     // 게시글 좋아요
     @Transactional
-    public LikeResponseDto likes(Integer id, Member member) {
+    public CommonResponseDto likes(int id, Member member) {
         Post post = postRepository.findById(id).orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION));
 
         if (likesRepository.findByPostAndMember(post, member) == null) {
@@ -153,6 +153,6 @@ public class PostService<member> {
             post.MinusLike();
             likesRepository.delete(likes);
         }
-        return LikeResponseDto.toDto(post.getLikeNum());
+        return new CommonResponseDto(true, 200, LikeResponseDto.toDto(post.getLikeNum()));
     }
 }

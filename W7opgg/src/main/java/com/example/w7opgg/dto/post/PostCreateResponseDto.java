@@ -1,4 +1,4 @@
-package com.example.w7opgg.dto;
+package com.example.w7opgg.dto.post;
 
 import com.example.w7opgg.entity.Post;
 import lombok.AllArgsConstructor;

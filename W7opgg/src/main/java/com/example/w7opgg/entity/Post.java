@@ -1,6 +1,6 @@
 package com.example.w7opgg.entity;
 
-import com.example.w7opgg.dto.PostRequestDto;
+import com.example.w7opgg.dto.post.PostRequestDto;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

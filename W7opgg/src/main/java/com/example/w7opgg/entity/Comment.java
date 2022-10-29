@@ -50,6 +50,7 @@ public class Comment {
         this.member = member;
     }
     public void update(String content){
+
         this.content = content;
     }
 }

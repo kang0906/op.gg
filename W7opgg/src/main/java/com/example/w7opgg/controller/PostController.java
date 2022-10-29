@@ -4,7 +4,7 @@ import com.example.w7opgg.dto.CommonResponseDto;
 import com.example.w7opgg.dto.PostCreateResponseDto;
 import com.example.w7opgg.dto.PostRequestDto;
 import com.example.w7opgg.entity.Member;
-import com.example.w7opgg.entity.PostCreateRequestDto;
+import com.example.w7opgg.dto.PostCreateRequestDto;
 import com.example.w7opgg.exception.RequestException;
 import com.example.w7opgg.repository.MemberRepository;
 import com.example.w7opgg.service.PostService;

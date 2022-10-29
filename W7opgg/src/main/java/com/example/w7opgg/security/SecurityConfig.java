@@ -80,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui/**", "/v3/**", "/test").permitAll() // swagger
                 .antMatchers(HttpMethod.GET, "/image/**").permitAll()
 
-                .antMatchers("/api/signup", "/api/login", "/api/reissue").permitAll()
+                .antMatchers("/api/signup", "/api/login", "/api/reissue", "/api/id-duplicate","/api/name-duplicate").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/api/users").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.GET, "/api/users/{id}").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
@@ -89,9 +89,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //                .antMatchers(HttpMethod.POST, "/api/post").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/post").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/post").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.GET, "/api/post").permitAll()  //access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.GET, "/api/post/best").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-                .antMatchers(HttpMethod.GET, "/api/post/{id}").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.GET, "/api/best").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/post/{id}").permitAll()  //access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.POST, "/api/post/like/{id}").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.POST, "/api/post/{id}").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.PUT, "/api/post/{id}").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")

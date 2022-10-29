@@ -2,9 +2,11 @@ package com.example.w7opgg.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class CommonResponseDto<T> {
     private boolean result;
     private int code;

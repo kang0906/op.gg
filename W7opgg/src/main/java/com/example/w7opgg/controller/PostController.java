@@ -67,7 +67,7 @@ public class PostController {
         return new CommonResponseDto<PostDetailSearchDto>(true, 200, postService.DetailShow(id));
     }
         //게시글 수정
-    @PutMapping("/auth/post/{id}")
+    @PutMapping("/post/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CommonResponseDto<PostDto> UpdatePost(@PathVariable Integer id, PostRequestDto postRequestDto, Member member){
         return new CommonResponseDto<PostDto>(true, 200, postService.UpdatePost(id, postRequestDto,member));
@@ -87,11 +87,11 @@ public class PostController {
     // 게시글 좋아요
     @PostMapping("/post/{id}/like")
     @ResponseStatus(HttpStatus.OK)
-    public CommonResponseDto likes(@PathVariable Integer id) {
+    public CommonResponseDto likes(@PathVariable int id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RequestException(ACCESS_DENIED_EXCEPTION));
         return new CommonResponseDto(true, 200, postService.likes(id, member) );
-    }
+        }
 
     // 인기 게시글 조회
     @GetMapping("/best")

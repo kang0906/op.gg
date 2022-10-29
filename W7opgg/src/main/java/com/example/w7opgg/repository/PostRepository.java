@@ -14,7 +14,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     Page<Post> findByMemberId(Pageable pageable, int id);
     Page<Post> findByLikesGreaterThanEqual(Pageable pageable, int i);
 
-    List<Post> findAllPostBy();
+    List<Post> findAllPostBy(Pageable pageable);
 
 }
 

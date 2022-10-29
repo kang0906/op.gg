@@ -7,7 +7,6 @@ import com.example.w7opgg.repository.MemberRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +38,7 @@ public class TokenProvider {
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;  // 7일
 
     private final Key key;
+
 
     @Autowired
     private MemberRepository userRepository;
@@ -106,6 +106,7 @@ public class TokenProvider {
         }
         Member member = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RequestException(ACCESS_DENIED_EXCEPTION));
         return member;//((UserDetailImp) authentication.getPrincipal()).getMember();
+
     }
 
     public boolean validateToken(String token) {

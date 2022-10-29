@@ -1,15 +1,15 @@
-package com.example.w7opgg.dto;
+package com.example.w7opgg.dto.post;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Getter
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class PostAllResponseDto {
+@AllArgsConstructor
+public class PostResponseDto {
 
     private Integer id;
     private String title;
@@ -18,5 +18,6 @@ public class PostAllResponseDto {
     private String name;
     private String Time;
     private Integer likeNum;
-    private Integer commentsNum;
+//    private List<CommentResponseDto> commentResponseDtoList;
+
 }

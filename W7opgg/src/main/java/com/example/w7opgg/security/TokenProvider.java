@@ -2,10 +2,14 @@ package com.example.w7opgg.security;
 
 import com.example.w7opgg.dto.TokenDto;
 import com.example.w7opgg.entity.Member;
+import com.example.w7opgg.exception.RequestException;
+import com.example.w7opgg.repository.MemberRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +27,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+import static com.example.w7opgg.exception.ExceptionType.ACCESS_DENIED_EXCEPTION;
+
 @Slf4j
 @Component
 public class TokenProvider {
@@ -34,6 +40,8 @@ public class TokenProvider {
 
     private final Key key;
 
+    @Autowired
+    private MemberRepository userRepository;
 
 
     public TokenProvider(@Value("${jwt.secret}") String secretKey) {
@@ -96,7 +104,8 @@ public class TokenProvider {
         if(authentication == null || AnonymousAuthenticationToken.class.isAssignableFrom(authentication.getClass())){
             return null;
         }
-        return((UserDetailImp) authentication.getPrincipal()).getMember();
+        Member member = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RequestException(ACCESS_DENIED_EXCEPTION));
+        return member;//((UserDetailImp) authentication.getPrincipal()).getMember();
     }
 
     public boolean validateToken(String token) {

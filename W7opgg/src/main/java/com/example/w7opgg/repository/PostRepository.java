@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
     Page<Post> findAllPageBy(Pageable pageable);
@@ -12,4 +14,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     Page<Post> findByMemberId(Pageable pageable, int id);
     Page<Post> findByLikesGreaterThanEqual(Pageable pageable, int i);
 
+    List<Post> findAllPostBy();
+
 }
+

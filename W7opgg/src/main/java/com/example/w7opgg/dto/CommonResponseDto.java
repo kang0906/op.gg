@@ -9,4 +9,8 @@ public class CommonResponseDto<T> {
     private boolean result;
     private int code;
     private T data;
-}
+    public static <T> CommonResponseDto <T> result(T data){
+
+        return new CommonResponseDto<>(true, (Integer) data, null);
+    }
+    }

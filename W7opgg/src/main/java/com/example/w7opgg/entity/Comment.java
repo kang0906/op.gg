@@ -25,9 +25,6 @@ public class Comment {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String writer;
-
     @DateTimeFormat
     private LocalDateTime writeTime;
 
@@ -51,7 +48,7 @@ public class Comment {
         this.name = member.getName();
         this.post = post;
         this.member = member;
-        this.writer = getWriter();
+        this.name = member.getName();
     }
     public void update(String content){
 

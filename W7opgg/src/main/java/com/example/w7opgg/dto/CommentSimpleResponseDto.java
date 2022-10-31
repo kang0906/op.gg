@@ -16,6 +16,6 @@ public class CommentSimpleResponseDto {
     private String writer;
 
     public static CommentSimpleResponseDto toDto(Comment comment) {
-        return new CommentSimpleResponseDto(comment.getContent(), comment.getWriter());
+        return new CommentSimpleResponseDto(comment.getContent(), comment.getName());
     }
 }

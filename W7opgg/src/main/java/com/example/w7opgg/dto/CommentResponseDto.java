@@ -17,7 +17,3 @@ public class CommentResponseDto {
     private String name;
     private LocalDateTime Time;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 91682ca (post,like -> 2차 수정)

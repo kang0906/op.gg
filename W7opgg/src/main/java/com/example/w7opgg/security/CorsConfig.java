@@ -13,7 +13,9 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:8080");
+        config.addAllowedOrigin("*");
+        config.addExposedHeader("Access_Token");
+        config.addExposedHeader("Refresh_Token");
 
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");

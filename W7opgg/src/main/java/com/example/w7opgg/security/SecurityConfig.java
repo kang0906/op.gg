@@ -50,9 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // CORS
         http.cors().configurationSource(request -> {
             var cors = new CorsConfiguration();
-            cors.setAllowedOrigins(List.of("http://localhost:8080"));
+            cors.setAllowedOrigins(List.of("*"));
             cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
             cors.setAllowedHeaders(List.of("*"));
+            cors.addExposedHeader("Access_Token");
+            cors.addExposedHeader("Refresh_Token");
             return cors;
         });
         http

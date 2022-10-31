@@ -69,8 +69,10 @@ public class PostController {
         //게시글 수정
     @PutMapping("/post/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CommonResponseDto<PostDto> UpdatePost(@PathVariable Integer id, PostRequestDto postRequestDto, Member member){
-        return new CommonResponseDto<PostDto>(true, 200, postService.UpdatePost(id, postRequestDto,member));
+    public CommonResponseDto UpdatePost(@PathVariable Integer id, PostRequestDto postRequestDto){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RequestException(ACCESS_DENIED_EXCEPTION));
+        return new CommonResponseDto(true, 200, postService.UpdatePost(id, postRequestDto,member));
     }
 
     //게시글 삭제

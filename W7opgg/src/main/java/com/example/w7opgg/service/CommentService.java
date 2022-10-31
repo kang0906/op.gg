@@ -32,15 +32,18 @@ public class CommentService {
         Post post = postRepository.findById(postId).orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION));
         Comment comment1 = commentRepository.save(new Comment(commentRequestDto.getContent(), post, member));
 
+
         List<Comment> commentList = commentRepository.findAllByPostId(postId);
         List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
         for(Comment comment : commentList){
             commentResponseDtoList.add(
                     CommentResponseDto.builder()
+                            //댓글 작성자의 Name과 로그인한 사람의 Name비교해서 true, false로 반환해주기
+                            .correctComment(comment.getMember().getName().equals(member.getName()))
                             .id(comment.getId())
                             .content(comment.getContent())
                             .name(comment.getName())
-                            .Time(comment.getWriteTime())
+                            .Time(comment.getWriteTime().toString())
                             .build()
             );
         }
@@ -66,10 +69,11 @@ public class CommentService {
         for(Comment comment : commentList){
             commentResponseDtoList.add(
                     CommentResponseDto.builder()
+                            .correctComment(comment.getMember().getName().equals(member.getName()))
                             .id(comment.getId())
                             .content(comment.getContent())
                             .name(comment.getName())
-                            .Time(comment.getWriteTime())
+                            .Time(comment.getWriteTime().toString())
                             .build()
             );
         }

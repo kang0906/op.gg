@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class CommentResponseDto {
+
+    private boolean correctComment;
     private int id;
     private String content;
     private String name;
-    private LocalDateTime Time;
+    private String Time;
 }

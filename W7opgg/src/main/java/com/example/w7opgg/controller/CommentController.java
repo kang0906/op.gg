@@ -31,7 +31,7 @@ public class CommentController {
     //댓글 작성
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CommonResponseDto<?> createComment(@Valid CommentRequestDto commentRequestDto,
+    public CommonResponseDto<?> createComment(@Valid @RequestBody CommentRequestDto commentRequestDto,
                                            @PathVariable int postId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = memberRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION));
@@ -41,7 +41,7 @@ public class CommentController {
 
     //댓글 수정
     @PutMapping("/{commentId}")
-    public CommonResponseDto<?> updateComment(@Valid CommentRequestDto commentRequestDto,
+    public CommonResponseDto<?> updateComment(@Valid @RequestBody CommentRequestDto commentRequestDto,
                                               @PathVariable int postId, @PathVariable int commentId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = memberRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION));

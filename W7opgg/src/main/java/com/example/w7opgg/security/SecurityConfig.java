@@ -53,8 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             cors.setAllowedOrigins(List.of("*"));
             cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
             cors.setAllowedHeaders(List.of("*"));
-            cors.addExposedHeader("Access_Token");
-            cors.addExposedHeader("Refresh_Token");
+            cors.addExposedHeader("accessToken");
+            cors.addExposedHeader("refreshToken");
             return cors;
         });
         http

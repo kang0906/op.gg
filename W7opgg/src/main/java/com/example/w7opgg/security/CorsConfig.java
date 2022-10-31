@@ -14,8 +14,8 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("*");
-        config.addExposedHeader("Access_Token");
-        config.addExposedHeader("Refresh_Token");
+        config.addExposedHeader("access_Token");
+        config.addExposedHeader("refresh_Token");
 
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");

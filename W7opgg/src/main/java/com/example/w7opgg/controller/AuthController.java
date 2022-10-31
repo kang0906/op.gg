@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 
@@ -26,8 +27,8 @@ public class AuthController {
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public CommonResponseDto<Object> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
-        return new CommonResponseDto(true , 200, authService.login(loginRequestDto));
+    public CommonResponseDto<Object> login(@Valid @RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+        return new CommonResponseDto(true , 200, authService.login(loginRequestDto,response));
     }
 
 

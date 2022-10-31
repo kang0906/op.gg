@@ -23,6 +23,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
+
 import static com.example.w7opgg.exception.ExceptionType.*;
 
 
@@ -52,7 +54,7 @@ public class AuthService {
 
 
     @Transactional
-    public TokenResponseDto login(LoginRequestDto loginRequestDto) {
+    public TokenResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         Member user = userRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow(() -> new RequestException(LOGIN_FAIL_EXCEPTION));
 
         validatePassword(loginRequestDto, user);
@@ -76,6 +78,10 @@ public class AuthService {
                 .build();
 
         refreshTokenRepository.save(refreshToken);
+
+        response.addHeader("accessToken", tokenDto.getAccessToken());
+        response.addHeader("refreshToken", tokenDto.getRefreshToken());
+
         // 5. 토큰 발급
         return new TokenResponseDto(tokenDto.getAccessToken(), tokenDto.getRefreshToken());
     }

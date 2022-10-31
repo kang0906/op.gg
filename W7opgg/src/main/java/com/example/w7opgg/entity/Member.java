@@ -58,4 +58,6 @@ public class Member {
         this.name = name;
         this.authority = authority;
     }
+
+
 }

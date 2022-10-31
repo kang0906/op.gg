@@ -1,19 +1,16 @@
 package com.example.w7opgg.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class CommentResponseDto {
-    private int id;
+public class CommentRequestDto {
+
+    @NotBlank
     private String content;
-    private String name;
-    private LocalDateTime Time;
 }

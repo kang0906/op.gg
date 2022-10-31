@@ -54,7 +54,12 @@ public class Comment {
         this.writer = getWriter();
     }
 
-    public void update(String content) {
+
+    
+
+    public void update(String content){
+
+
         this.content = content;
     }
 

@@ -17,6 +17,6 @@ public class CommentResponseDto {
     private int id;
     private String content;
     private String name;
-    private String Time;
+    private String time;
 }
 

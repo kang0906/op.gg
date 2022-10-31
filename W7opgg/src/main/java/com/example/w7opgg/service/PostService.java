@@ -159,18 +159,20 @@ public class PostService<member> {
     }
     // 게시글 좋아요
     @Transactional
-    public CommonResponseDto likes(int id, Member member) {
+    public LikeResponseDto likes(int id, Member member) {
         Post post = postRepository.findById(id).orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION));
-
+        boolean correct;
         if (likesRepository.findByPostAndMember(post, member) == null) {
             post.PlusLike();
             Likes likes = new Likes(post, member);
             likesRepository.save(likes);
+            correct = true;
         } else {
             Likes likes = likesRepository.findByPostAndMember(post, member);
             post.MinusLike();
             likesRepository.delete(likes);
+            correct = false;
         }
-        return new CommonResponseDto(true, 200, LikeResponseDto.toDto(post.getLikes()));
+        return LikeResponseDto.toDto(post.getLikes(), correct);
     }
 }

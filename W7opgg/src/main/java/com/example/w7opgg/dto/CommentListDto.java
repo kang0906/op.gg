@@ -17,14 +17,14 @@ public class CommentListDto {
     private int id;
     private String comment;
     private String name;
-    private LocalDateTime time;
+    private String time;
 
     public CommentListDto(Comment comment, boolean correctComment){
         this.correctComment = correctComment;
         this.id = comment.getId();
         this.comment = comment.getContent();
         this.name = comment.getName();
-        this.time = comment.getWriteTime();
+        this.time = comment.getWriteTime().toString();
     }
 
 }

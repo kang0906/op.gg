@@ -90,15 +90,16 @@ public class PostService<member> {
         }
 
         Post post = postRepository.save(new Post(postCreateRequestDto.getTitle(), postCreateRequestDto.getContent(), member, imgurl)); // + imgUrl
-        return PostCreateResponseDto.toDto(post);
+        return PostCreateResponseDto.toDto(post, member.getName().equals(post.getName()), new ArrayList(), false);
     }
 
     //게시글 전체 조회
     @Transactional(readOnly = true)
-    public List<PostAllResponseDto> AllShow(Pageable pageable) {
+    public List<PostAllResponseDto> AllShow(Pageable pageable, Member member) {
         List<Post> postList = postRepository.findAllPostBy(pageable);
         List<PostAllResponseDto> postAllList = new ArrayList<>();
-        postList.stream().forEach(i -> postAllList.add(new PostAllResponseDto().toDto(i,commentRepository.findByPostId(i.getId()).size())));
+
+        postList.stream().forEach(i -> postAllList.add(new PostAllResponseDto().toDto(i,commentRepository.findByPostId(i.getId()).size(), likesRepository.findByPostAndMember(i,member))));
         return postAllList;
     }
     // 인기 게시글 조회
@@ -111,24 +112,41 @@ public class PostService<member> {
     }
     //게시글 상세 조회
     @Transactional(readOnly = true)
-    public PostDetailSearchDto DetailShow(int id) {
-        List<Comment> comment = commentRepository.findByPostId(id);
-        List<CommentSimpleResponseDto> commentSimpleResponseDtos = new ArrayList<>();
-        comment.forEach(i -> commentSimpleResponseDtos.add(CommentSimpleResponseDto.toDto(i)));
+    public PostCreateResponseDto DetailShow(int id, Member member) {
+//        List<Comment> comment = commentRepository.findByPostId(id);
+//        List<CommentSimpleResponseDto> commentSimpleResponseDtos = new ArrayList<>();
+//        comment.forEach(i -> commentSimpleResponseDtos.add(CommentSimpleResponseDto.toDto(i)));
+        Post post = postRepository.findById(id).orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION));
+        List<Comment> byPostId = commentRepository.findByPostId(post.getId());
+        List<CommentListDto> commentList = new ArrayList<>();
 
-        return PostDetailSearchDto.toDto(postRepository.findById(id).orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION)), commentSimpleResponseDtos);}
-
-        //게시글 수정
-        @Transactional
-        public PostDto UpdatePost (Integer id, PostRequestDto postRequestDto, Member member){
-            Post post = postRepository.findById(id).orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION));
-            if (!member.equals(post.getMember())) {
-                throw new RequestException(ACCESS_DENIED_EXCEPTION);
-            }
-            post.updatePost(postRequestDto);
-            return PostDto.toDto(post);
+        for (Comment comment : byPostId) {
+            commentList.add(new CommentListDto(comment, comment.getName().equals(member.getName())));
         }
-        //게시글 삭제
+
+        return PostCreateResponseDto.toDto(post, post.getName().equals(member.getName()),commentList,null != likesRepository.findByPostAndMember(post,member));
+//        return PostDetailSearchDto.toDto(postRepository.findById(id).orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION)), commentSimpleResponseDtos);
+    }
+
+    //게시글 수정
+    @Transactional
+    public PostCreateResponseDto UpdatePost (Integer id, PostRequestDto postRequestDto, Member member){
+        Post post = postRepository.findById(id).orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION));
+        if (!member.equals(post.getMember())) {
+            throw new RequestException(ACCESS_DENIED_EXCEPTION);
+        }
+        post.updatePost(postRequestDto);
+        List<Comment> byPostId = commentRepository.findByPostId(post.getId());
+        List<CommentListDto> commentList = new ArrayList<>();
+
+        for (Comment comment : byPostId) {
+            commentList.add(new CommentListDto(comment, comment.getName().equals(member.getName())));
+        }
+
+        return PostCreateResponseDto.toDto(post, post.getName().equals(member.getName()),commentList,null != likesRepository.findByPostAndMember(post,member));
+    }
+
+    //게시글 삭제
     @Transactional
     public void DeletePost(Integer id, Member member) {
         Post post = postRepository.findById(id).orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION));
@@ -153,6 +171,6 @@ public class PostService<member> {
             post.MinusLike();
             likesRepository.delete(likes);
         }
-        return new CommonResponseDto(true, 200, LikeResponseDto.toDto(post.getLikeNum()));
+        return new CommonResponseDto(true, 200, LikeResponseDto.toDto(post.getLikes()));
     }
 }

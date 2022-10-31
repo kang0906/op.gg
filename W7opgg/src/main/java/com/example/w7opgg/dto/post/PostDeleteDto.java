@@ -18,7 +18,7 @@ public class PostDeleteDto {
     private String content;
     private String image;
     private String name;
-    private String Time;
+    private String time;
     private Integer likeNum;
     private Integer commentsNum;
 
@@ -26,6 +26,6 @@ public class PostDeleteDto {
         return new PostDeleteDto(post.getId(), post.getTitle(), post.getContent(),
                 post.getImgUrl(), post.getMember().getName(),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd").format(post.getWriteTime()),
-                post.getLikeNum(), commentNum);
+                post.getLikes(), commentNum);
     }
 }

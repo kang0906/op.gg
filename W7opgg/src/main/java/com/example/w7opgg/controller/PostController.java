@@ -55,21 +55,26 @@ public class PostController {
     @GetMapping("/post")
     @ResponseStatus(HttpStatus.OK)
     public CommonResponseDto AllShow(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        {
-            return new CommonResponseDto(true, 200, postService.AllShow(pageable));
-        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = userRepository.findByEmail(authentication.getName()).orElse(new Member(-1,"","","",null,null));
+
+
+        return new CommonResponseDto(true, 200, postService.AllShow(pageable, member));
+
 
     }
     //게시글 상세 조회
     @GetMapping("/post/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CommonResponseDto DetailShow(@PathVariable Integer id) {
-        return new CommonResponseDto<PostDetailSearchDto>(true, 200, postService.DetailShow(id));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = userRepository.findByEmail(authentication.getName()).orElse(new Member(-1,"","","",null,null));
+        return new CommonResponseDto<PostCreateResponseDto>(true, 200, postService.DetailShow(id, member));
     }
         //게시글 수정
     @PutMapping("/post/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CommonResponseDto UpdatePost(@PathVariable Integer id, PostRequestDto postRequestDto){
+    public CommonResponseDto UpdatePost(@PathVariable Integer id,@RequestBody PostRequestDto postRequestDto){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RequestException(ACCESS_DENIED_EXCEPTION));
         return new CommonResponseDto(true, 200, postService.UpdatePost(id, postRequestDto,member));
@@ -92,6 +97,7 @@ public class PostController {
     public CommonResponseDto likes(@PathVariable int id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RequestException(ACCESS_DENIED_EXCEPTION));
+
         return new CommonResponseDto(true, 200, postService.likes(id, member) );
         }
 

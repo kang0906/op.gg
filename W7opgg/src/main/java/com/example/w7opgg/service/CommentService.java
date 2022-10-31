@@ -43,7 +43,7 @@ public class CommentService {
                             .id(comment.getId())
                             .content(comment.getContent())
                             .name(comment.getName())
-                            .Time(comment.getWriteTime().toString())
+                            .time(comment.getWriteTime())
                             .build()
             );
         }
@@ -73,7 +73,7 @@ public class CommentService {
                             .id(comment.getId())
                             .content(comment.getContent())
                             .name(comment.getName())
-                            .Time(comment.getWriteTime().toString())
+                            .time(comment.getWriteTime())
                             .build()
             );
         }

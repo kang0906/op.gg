@@ -25,7 +25,7 @@ public class PostDto {
                 post.getTitle(),
                 post.getContent(),
                 post.getMember().getName(),
-                post.getLikeNum(),
+                post.getLikes(),
                 post.getCommentNum(),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd").format(post.getWriteTime())
         );

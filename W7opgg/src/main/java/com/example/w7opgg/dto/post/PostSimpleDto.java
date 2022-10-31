@@ -25,6 +25,6 @@ public class PostSimpleDto {
         return new PostSimpleDto(post.getId() ,post.getTitle(), post.getContent(),
                 post.getImgUrl(), post.getMember().getName(),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd").format(post.getWriteTime()),
-                post.getLikeNum(), commentNum);
+                post.getLikes(), commentNum);
     }
 }

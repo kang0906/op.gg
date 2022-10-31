@@ -16,7 +16,7 @@ public class PostResponseDto {
     private String content;
     private String image;
     private String name;
-    private String Time;
+    private String time;
     private Integer likeNum;
 //    private List<CommentResponseDto> commentResponseDtoList;
 

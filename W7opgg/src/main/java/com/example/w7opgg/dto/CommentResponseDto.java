@@ -15,5 +15,5 @@ public class CommentResponseDto {
     private int id;
     private String content;
     private String name;
-    private LocalDateTime Time;
+    private LocalDateTime time;
 }

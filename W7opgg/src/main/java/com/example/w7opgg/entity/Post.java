@@ -37,9 +37,6 @@ public class Post {
     private int likes;
 
     @Column(nullable = false)
-    private int likeNum;
-
-    @Column(nullable = false)
     private int commentNum;
 
     @Column(nullable = false)
@@ -64,8 +61,8 @@ public class Post {
     }
 
     public void updatePost(PostRequestDto postRequestDto) {
-        this.title = title;
-        this.content = content;
+        this.title = postRequestDto.getTitle();
+        this.content = postRequestDto.getContent();
     }
 
     public void deletePost(PostRequestDto postRequestDto) {

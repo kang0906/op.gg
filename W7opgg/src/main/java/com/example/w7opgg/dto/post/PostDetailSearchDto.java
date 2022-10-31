@@ -31,7 +31,7 @@ public class PostDetailSearchDto {
                 post.getImgUrl(),
                 post.getMember().getName(),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd").format(post.getWriteTime()),
-                post.getLikeNum(),
+                post.getLikes(),
                 post.getCommentNum(),
                 commentSimpleResponseDtos
         );

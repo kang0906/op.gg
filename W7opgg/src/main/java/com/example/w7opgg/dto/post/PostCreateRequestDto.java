@@ -1,4 +1,4 @@
-package com.example.w7opgg.dto;
+package com.example.w7opgg.dto.post;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

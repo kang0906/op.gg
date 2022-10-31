@@ -1,10 +1,9 @@
 package com.example.w7opgg.controller;
 
+import com.amazonaws.Response;
 import com.example.w7opgg.dto.CommonResponseDto;
-import com.example.w7opgg.dto.PostCreateResponseDto;
-import com.example.w7opgg.dto.PostRequestDto;
+import com.example.w7opgg.dto.post.*;
 import com.example.w7opgg.entity.Member;
-import com.example.w7opgg.dto.PostCreateRequestDto;
 import com.example.w7opgg.exception.RequestException;
 import com.example.w7opgg.repository.MemberRepository;
 import com.example.w7opgg.service.PostService;
@@ -24,8 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 import static com.example.w7opgg.exception.ExceptionType.*;
+//import static jdk.internal.org.jline.reader.impl.LineReaderImpl.CompletionType.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -53,51 +54,54 @@ public class PostController {
     // 게시글 전체 조회
     @GetMapping("/post")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> AllShow() {
-        return postService.AllShow();
-    }
+    public CommonResponseDto AllShow(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        {
+            return new CommonResponseDto(true, 200, postService.AllShow(pageable));
+        }
 
-    //    public CommonResponseDto<PostAllResponseDto> AllShow(@PathVariable Long folderId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        return CommonResponseDto.result(postService.AllShow(folderId, userDetails.getAccount()));
-//    }
+    }
     //게시글 상세 조회
     @GetMapping("/post/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> DetailShow(@PathVariable Integer id) {
-        return postService.DetailShow(id);
+    public CommonResponseDto DetailShow(@PathVariable Integer id) {
+        return new CommonResponseDto<PostDetailSearchDto>(true, 200, postService.DetailShow(id));
     }
-
-    //게시글 수정
+        //게시글 수정
     @PutMapping("/post/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> UpdatePost(@PathVariable Integer id,
-                                        @RequestBody PostRequestDto postRequestDto,
-                                        HttpServletRequest request) {
-        return postService.UpdatePost(id, postRequestDto, request);
+    public CommonResponseDto UpdatePost(@PathVariable Integer id, PostRequestDto postRequestDto){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RequestException(ACCESS_DENIED_EXCEPTION));
+        return new CommonResponseDto(true, 200, postService.UpdatePost(id, postRequestDto,member));
     }
 
     //게시글 삭제
-    @DeleteMapping(value = "/post/{id}")
+    @DeleteMapping("/post/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> DeletePost(@PathVariable Integer id, HttpServletRequest request) {
-        return postService.DeletePost(id, request);
+    public CommonResponseDto DeletePost(@PathVariable Integer id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RequestException(ACCESS_DENIED_EXCEPTION));
+        postService.DeletePost(id, member);
+        return new CommonResponseDto(true, 200, "");
     }
+
 
     // 게시글 좋아요
     @PostMapping("/post/{id}/like")
     @ResponseStatus(HttpStatus.OK)
-    public CommonResponseDto like(@PathVariable int id) {
+    public CommonResponseDto likes(@PathVariable int id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new RequestException(ACCESS_DENIED_EXCEPTION));
-        return CommonResponseDto.result(postService.like(id, member));
-    }
+        return new CommonResponseDto(true, 200, postService.likes(id, member) );
+        }
 
     // 인기 게시글 조회
     @GetMapping("/best")
     @ResponseStatus(HttpStatus.OK)
-    public CommonResponseDto PopularPost(@PageableDefault(size = 5, sort = "like", direction = Sort.Direction.DESC) Pageable pageable) {
-        return CommonResponseDto.result(postService.findPopularPost(pageable));
+    public CommonResponseDto PopularPost(@PageableDefault(size = 5, sort = "likes", direction = Sort.Direction.DESC) Pageable pageable) {
+        return new CommonResponseDto(true, 200, postService.PopularPost(pageable));
     }
 }
+
 
 

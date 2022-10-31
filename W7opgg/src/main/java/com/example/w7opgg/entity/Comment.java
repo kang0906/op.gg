@@ -46,21 +46,15 @@ public class Comment {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Post post;
 
-    public Comment(String content, Post post, Member member) {
+    public Comment(String content, Post post, Member member){
         this.content = content;
         this.name = member.getName();
         this.post = post;
         this.member = member;
         this.writer = getWriter();
     }
-
-
-    
-
     public void update(String content){
-
 
         this.content = content;
     }
-
 }

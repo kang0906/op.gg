@@ -21,7 +21,9 @@ import com.example.w7opgg.s3.CommonUtils;
 import com.example.w7opgg.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,11 +105,21 @@ public class PostService<member> {
         return postAllList;
     }
     // 인기 게시글 조회
+//    @Transactional(readOnly = true)
+//    public List<PostSimpleDto> PopularPost(Pageable pageable) {
+//        Page<Post> posts = postRepository.findByLikesGreaterThanEqual(pageable, 5);
+//        List<PostSimpleDto> postSimpleDtos = new ArrayList<>();
+//        posts.stream().forEach(i -> postSimpleDtos.add(new PostSimpleDto().toDto(i, commentRepository.findByPostId(i.getId()).size())));
+//        return postSimpleDtos;
+//    }
     @Transactional(readOnly = true)
-    public List<PostSimpleDto> PopularPost(Pageable pageable) {
-        Page<Post> posts = postRepository.findByLikesGreaterThanEqual(pageable, 5);
-        List<PostSimpleDto> postSimpleDtos = new ArrayList<>();
-        posts.stream().forEach(i -> postSimpleDtos.add(new PostSimpleDto().toDto(i, commentRepository.findByPostId(i.getId()).size())));
+    public List<BestPostResponseDto> PopularPost(Pageable pageable) {
+        PageRequest pageRequest = PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "likes"));
+        Page<Post> all = postRepository.findAll(pageRequest);
+        List<BestPostResponseDto> postSimpleDtos = new ArrayList<>();
+        all.stream().forEach(
+                i -> postSimpleDtos.add(
+                        new BestPostResponseDto(i,commentRepository.findByPostId(i.getId()).size())));
         return postSimpleDtos;
     }
     //게시글 상세 조회

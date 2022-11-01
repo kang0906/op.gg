@@ -12,4 +12,11 @@ import lombok.NoArgsConstructor;
 public class TokenResponseDto {
     private String accessToken;
     private String refreshToken;
+    private String email;
+    private String name;
+
+    public TokenResponseDto(String accessToken, String refreshToken) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+    }
 }

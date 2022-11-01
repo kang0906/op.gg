@@ -10,9 +10,11 @@ import com.example.w7opgg.exception.RequestException;
 import com.example.w7opgg.repository.CommentRepository;
 import com.example.w7opgg.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class CommentService {
                             .id(comment.getId())
                             .content(comment.getContent())
                             .name(comment.getName())
-                            .time(comment.getWriteTime().toString())
+                            .time(CustomTime.displayTime(comment.getWriteTime()))
                             .build()
             );
         }
@@ -73,7 +75,7 @@ public class CommentService {
                             .id(comment.getId())
                             .content(comment.getContent())
                             .name(comment.getName())
-                            .time(comment.getWriteTime().toString())
+                            .time(CustomTime.displayTime(comment.getWriteTime()))
                             .build()
             );
         }

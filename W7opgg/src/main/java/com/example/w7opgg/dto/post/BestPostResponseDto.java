@@ -1,6 +1,7 @@
 package com.example.w7opgg.dto.post;
 
 import com.example.w7opgg.entity.Post;
+import com.example.w7opgg.service.CustomTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,6 @@ public class BestPostResponseDto {
         this.img = post.getImgUrl();
         this.name = post.getName();
         this.commentsNum = commentsNum;
-        this.time = post.getWriteTime().toString();
+        this.time = CustomTime.displayTime(post.getWriteTime());
     }
 }

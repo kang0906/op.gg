@@ -3,6 +3,7 @@ package com.example.w7opgg.dto.post;
 import com.example.w7opgg.entity.Likes;
 import com.example.w7opgg.entity.Member;
 import com.example.w7opgg.entity.Post;
+import com.example.w7opgg.service.CustomTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class PostAllResponseDto {
     public PostAllResponseDto toDto(Post post, int commentNum, Likes like) {
         return new PostAllResponseDto(like!=null, post.getId(), post.getTitle(), post.getContent(),
                 post.getImgUrl(), post.getMember().getName(),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd").format(post.getWriteTime()),
+                CustomTime.displayTime(post.getWriteTime()),
                 post.getLikes(), commentNum);
     }
 }

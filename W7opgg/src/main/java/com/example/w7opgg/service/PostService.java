@@ -112,6 +112,8 @@ public class PostService<member> {
 //        posts.stream().forEach(i -> postSimpleDtos.add(new PostSimpleDto().toDto(i, commentRepository.findByPostId(i.getId()).size())));
 //        return postSimpleDtos;
 //    }
+
+    // 인기 게시글 조회
     @Transactional(readOnly = true)
     public List<BestPostResponseDto> PopularPost(Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "likes"));

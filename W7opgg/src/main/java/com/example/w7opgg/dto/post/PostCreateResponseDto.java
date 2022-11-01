@@ -1,6 +1,7 @@
 package com.example.w7opgg.dto.post;
 
 import com.example.w7opgg.entity.Post;
+import com.example.w7opgg.service.CustomTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,7 +34,7 @@ public class PostCreateResponseDto {
                 .content(post.getContent())
                 .img(post.getImgUrl())
                 .name(post.getName())
-                .time(post.getWriteTime().toString())
+                .time(CustomTime.displayTime(post.getWriteTime()))
                 .likeNum(post.getLikes())
                 .correctLike(correctLike)
                 .comments(list)

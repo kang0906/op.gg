@@ -83,7 +83,7 @@ public class AuthService {
         response.addHeader("refreshToken", tokenDto.getRefreshToken());
 
         // 5. 토큰 발급
-        return new TokenResponseDto(tokenDto.getAccessToken(), tokenDto.getRefreshToken());
+        return new TokenResponseDto(tokenDto.getAccessToken(), tokenDto.getRefreshToken(),user.getEmail(),user.getName());
     }
 
 

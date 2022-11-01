@@ -16,7 +16,7 @@ public class PostSimpleDto {
     private String content;
     private String img;
     private String name;
-    private String createTime;
+    private String time;
     private int likeNum;
     private int commentNum;
 

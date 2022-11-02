@@ -7,8 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface LikesRepository extends JpaRepository<Likes, Integer> {
     Likes findByPostAndMember(Post post, Member member);
 
-    Page<Likes> findByMemberId(Pageable pageable, int id);
-}
+    void deleteAllByPost(Post post);
+    }
+

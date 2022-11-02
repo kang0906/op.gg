@@ -163,12 +163,12 @@ public class PostService<member> {
     //게시글 삭제
     @Transactional
     public void DeletePost(Integer id, Member member) {
-        Post post = postRepository.findById(id).orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION));
-
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new RequestException(NOT_FOUND_EXCEPTION));
         if (!member.equals(post.getMember())) {
             throw new RequestException(ACCESS_DENIED_EXCEPTION);
         }
-
+        likesRepository.deleteAllByPost(post);
         postRepository.delete(post);
     }
     // 게시글 좋아요

@@ -37,24 +37,32 @@ https://www.notion.so/686e87c64771405f915dbcea50d3dd3a?v=9bcdea42e28a405b975f037
 ## 🚀 트러블슈팅
 
 <details>
-<summary>1. 좋아요가 눌린 게시글은 삭제가 되지 않는 문제발생
+<summary>1. 검색 기능 구현 시 RequestParam어노테이션 문제
+</summary>
+<div markdown="1">  
+    
+    👌 검색 기능 구현시 컨트롤러에서 RequestParam어노테이션을 작성하지 않아 response를 프론트로 보낼수 없었던 문제해결
+      (구글링 시 생략이 가능하다고는 보았으나 확실하지 않아 value와 required, defaultValue를 모두 명시해놓기는 하였음)
+    	    
+</div>
+</details>
+
+<details>
+<summary>2. 좋아요가 눌린 게시글은 삭제가 되지 않는 문제발생
 </summary>
 <div markdown="1">  
     
     👌 post delete 수정
-
-     PostService delete 부분에
-     likesRepository.deleteAllByPost(post); 추가
-
+    
      LikesRepository 에
-     void deleteAllByPost(Post post); 추가
+     void deleteAllByPost(Post post); 추가 //LikesRepository에 게시글에서 좋아요를 찾아 삭제하는 메소드
+    
+     PostService delete 부분에
+     likesRepository.deleteAllByPost(post); 추가 //post delete 메소드 전 like delete 메소드 기능 추가
+          
 	    
 </div>
 </details>
-
-
-### FrontEnd 팀원 깃허브
-👩‍💻 [김성욱](https://github.com/) 👩‍💻 [김민석](https://github.com/) 
 
 ### BackEnd 팀원 깃허브
 👩‍💻 [강진구](https://github.com/kang0906) 👩‍💻 [조정우](https://github.com/jjw0611) 👨‍💻 [이동재](https://github.com/Pdongjaelee)

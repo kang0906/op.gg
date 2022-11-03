@@ -36,6 +36,23 @@ https://www.notion.so/686e87c64771405f915dbcea50d3dd3a?v=9bcdea42e28a405b975f037
 
 ## 🚀 트러블슈팅
 
+<details>
+<summary>1. 좋아요가 눌린 게시글은 삭제가 되지 않는 문제발생
+</summary>
+<div markdown="1">  
+    
+    👌 post delete 수정
+
+     PostService delete 부분에
+     likesRepository.deleteAllByPost(post); 추가
+
+     LikesRepository 에
+     void deleteAllByPost(Post post); 추가
+	    
+</div>
+</details>
+
+
 ### FrontEnd 팀원 깃허브
 👩‍💻 [김성욱](https://github.com/) 👩‍💻 [김민석](https://github.com/) 
 
